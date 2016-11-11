@@ -23,6 +23,7 @@ public:
 	void addNormalLine(int lineindex);
 	void addEndLine();
 
+	int lineTotalCnt;
 public:
 	virtual void update(float dt);
 

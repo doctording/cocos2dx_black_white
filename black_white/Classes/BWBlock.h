@@ -21,7 +21,7 @@ public:
 
 	virtual bool initWithArgs(Color3B color, Size size, std::string label, float fontSize, Color4B textColor);
 
-	void removeBlock();
+	void removeBlock(); //È«²¿Ïú»Ù
 
 	int getLineIndex();
 	void setLineIndex(int _lineIndex);

@@ -63,7 +63,7 @@ void BWBlock::setLineIndex(int _lineIndex)
 	lineIndex = _lineIndex;
 }
 
-void BWBlock::moveDown() //控制自己这个block,往下移动
+void BWBlock::moveDown() //控制自己这个block,往下移动,如果等于0 自动已经删除掉了
 {
 	this->lineIndex--;
 
