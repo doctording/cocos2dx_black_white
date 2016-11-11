@@ -29,8 +29,21 @@ bool GameScene::init()
 	this->addNormalLine(2);
 	this->addNormalLine(3);
 
+	// 屏幕touch事件监听
+	//创建监听事件对象
+	auto listener = EventListenerTouchOneByOne::create();
+	//定义监听事件的回调函数
+	listener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+	listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
+	listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
+	//在事件分发器中注册
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
 	return true;
 }
+
+
+
 
 void GameScene::addStartLine()
 {
@@ -62,4 +75,44 @@ void GameScene::addNormalLine(int lineindex)
 		b->setLineIndex(lineindex);
 		this->addChild(b);
 	}
+}
+
+bool GameScene::onTouchBegan(Touch *touch, Event *unused_event)
+{
+	//获取触屏位置（坐标）
+	Point pos = touch->getLocation();
+	// CCLOG("x:%lf,y:%lf", pos.x, pos.y);
+	
+	//遍历blocks
+	auto bs = BWBlock::getBlocks();
+	BWBlock* b;
+	for (auto it = bs->begin(); it != bs->end(); it++)
+	{
+		b = *it;
+		if (b->getLineIndex() == 1 && b->getBoundingBox().containsPoint(pos))
+		{
+			if (b->getColor() == Color3B::BLACK){
+				b->setColor(Color3B::GRAY);//点击的黑色块变成灰色
+			}
+			break; //退出循环
+		}
+	}
+	return false;
+}
+
+void GameScene::onTouchMoved(Touch *touch, Event *unused_event)
+{
+	//获取当前拖动手势的坐标与位置
+	//Point pos = touch->getLocation();
+	//CCLOG("TouchMoved");
+}
+
+void GameScene::onTouchEnded(Touch *touch, Event *unused_event)
+{
+	
+}
+
+void GameScene::update(float delta)
+{
+
 }

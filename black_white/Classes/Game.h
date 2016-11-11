@@ -23,6 +23,15 @@ public:
 	void addNormalLine(int lineindex);
 	void addEndLine();
 
+public:
+	virtual void update(float dt);
+
+	// 点击手势
+	bool onTouchBegan(Touch *touch, Event *unused_event);
+	// 拖动手势
+	void onTouchMoved(Touch *touch, Event *unused_event);
+	//  拖动结束
+	void onTouchEnded(Touch *touch, Event *unused_event);
 };
 
 #endif // __GameScene_SCENE_H__
