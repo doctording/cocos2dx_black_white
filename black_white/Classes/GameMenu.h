@@ -19,7 +19,6 @@ public:
 	void midCallback(cocos2d::Ref* pSender, cocos2d::ui::TouchEventType type);
 	void helpCallback(cocos2d::Ref* pSender, cocos2d::ui::TouchEventType type);
 	void highScoreCallback(cocos2d::Ref* pSender, cocos2d::ui::TouchEventType type);
-
 };
 
 #endif // __Gamemenu_H__

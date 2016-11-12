@@ -23,12 +23,6 @@ bool GameScene::init()
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
 
-	lineTotalCnt = 0;
-	
-	this->addStartLine();
-	this->addNormalLine(1);
-	this->addNormalLine(2);
-	this->addNormalLine(3);
 
 	// 屏幕touch事件监听
 	//创建监听事件对象
@@ -40,10 +34,72 @@ bool GameScene::init()
 	//在事件分发器中注册
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
+
+	timerLabel = Label::create();
+	timerLabel->setColor(Color3B::BLUE);
+	timerLabel->setSystemFontSize(48);
+	timerLabel->setPosition(visibleSize.width / 2, visibleSize.height - 100);
+	timerLabel->setString("0.000");
+	this->addChild(timerLabel,1);
+
+	startGameInit(); // 各种数据，定时器的初始化
+
 	return true;
 }
 
+void GameScene::startGameInit()
+{
+	lineTotalCnt = 0;
+	addStartLine();
+	addNormalLine(1);
+	addNormalLine(2);
+	addNormalLine(3);
+	timerRunning = false;
+	sTime = clock();
+}
 
+void GameScene::startTimer()
+{
+	if (!timerRunning)
+	{
+		//更新定时器，每帧调用1次。每个节点只能有1个被调度的update函数
+		//scheduleUpdate(void);
+
+		//每隔1.0f执行一次，省略参数则表示每帧都要执行
+		//scheduleOnce(schedule_selector(HelloWorld::update), 1.0f); 
+
+		//自定义 开启定时器，延时2s执行，执行3+1次，执行间隔1s
+		//this->schedule(schedule_selector(HelloWorld::update), 1, 3, 2);
+
+		//自定义定时器
+		schedule(schedule_selector(GameScene::update), 0.8);
+
+		schedule(schedule_selector(GameScene::updateLabel), 0.2);
+
+		sTime = clock();
+
+		timerRunning = true;
+	}
+}
+
+void GameScene::stopTimer()
+{
+	if (timerRunning)
+	{
+		unschedule(schedule_selector(GameScene::update));
+		unschedule(schedule_selector(GameScene::updateLabel));
+		timerRunning = false;
+		
+		// 这里跳转，存储数据等
+		// TODO
+	}
+}
+
+void GameScene::updateLabel(float dt)
+{
+	long offset = clock() - sTime;
+	timerLabel->setString(StringUtils::format("%.2lf", ((double)offset) / 1000)); //单位变成秒
+}
 
 
 void GameScene::addStartLine()
@@ -96,8 +152,9 @@ bool GameScene::onTouchBegan(Touch *touch, Event *unused_event)
 			{
 				b->setColor(Color3B::GRAY);//点击的黑色块变成灰色
 				
-				//自定义定时器
-				schedule(schedule_selector(GameScene::update), 0.8);
+				//点击第一个黑块开始计时
+				if (!timerRunning)
+					this->startTimer();
 			}
 			break; //退出循环
 		}
@@ -137,6 +194,7 @@ void GameScene::update(float delta)
 			{
 				//unschedule(schedule_selector(GameScene::update));
 				//break;
+				stopTimer();
 			}
 		}
 	}

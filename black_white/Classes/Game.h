@@ -24,6 +24,17 @@ public:
 	void addEndLine();
 
 	int lineTotalCnt;
+
+	Label* timerLabel; //显示时间
+	int sTime; // 记录开始时间
+	void updateLabel(float dt); // 时间的更新函数
+
+	void startGameInit();
+	bool timerRunning; // timer是否正在运行
+	
+	void startTimer(); // 开始 schedule
+	void stopTimer();  // 结束 schedule
+
 public:
 	virtual void update(float dt);
 
