@@ -32,6 +32,7 @@ bool GameScene::init()
 	//在事件分发器中注册
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
+	timerLabel = Label::create();
 	timerLabel->setColor(Color3B::BLUE);
 	timerLabel->setSystemFontSize(48);
 	timerLabel->setPosition(visibleSize.width / 2, visibleSize.height - 100);
