@@ -136,7 +136,7 @@ void GameScene::update(float delta)
 			if ((b->getColor().r + b->getColor().g + b->getColor().b) == 0) // r g b都等于0是黑色
 			{
 				//unschedule(schedule_selector(GameScene::update));
-				break;
+				//break;
 			}
 		}
 	}

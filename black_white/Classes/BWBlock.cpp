@@ -77,4 +77,5 @@ void BWBlock::moveDown() //控制自己这个block,往下移动,如果等于0 自动已经删除掉了
 		if (this->lineIndex < 0)
 			this->removeBlock();
 	}), NULL));
+
 }
