@@ -19,10 +19,8 @@ bool GameScene::init()
 	{
 		return false;
 	}
-
 	visibleSize = Director::getInstance()->getVisibleSize();
 	origin = Director::getInstance()->getVisibleOrigin();
-
 
 	// 屏幕touch事件监听
 	//创建监听事件对象
@@ -34,8 +32,6 @@ bool GameScene::init()
 	//在事件分发器中注册
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 
-
-	timerLabel = Label::create();
 	timerLabel->setColor(Color3B::BLUE);
 	timerLabel->setSystemFontSize(48);
 	timerLabel->setPosition(visibleSize.width / 2, visibleSize.height - 100);
@@ -90,7 +86,7 @@ void GameScene::stopTimer()
 		unschedule(schedule_selector(GameScene::updateLabel));
 		timerRunning = false;
 		
-		// 这里跳转，存储数据等
+		// 这里做跳转，存储数据等操作
 		// TODO
 	}
 }
@@ -108,7 +104,6 @@ void GameScene::addStartLine()
 		visibleSize.height / 4), "", 20, Color4B::YELLOW);
 
 	b->setLineIndex(1);
-
 	this->addChild(b);
 }
 
