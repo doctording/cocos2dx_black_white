@@ -1,5 +1,7 @@
 #include "Game.h"
 #include "DataUtil.h"
+#include "GameOver.h"
+
 
 USING_NS_CC;
 
@@ -121,6 +123,13 @@ void GameScene::stopTimer()
 		DataUtil::insertData(sqlss);
 
 		DataUtil::closeDB();
+
+		// ³¡¾°Ìø×ª
+		auto scene = GameOver::createScene();
+		GameOver *overLayer = (GameOver*)scene->getChildByTag(404); // tag
+		overLayer->score = lineTotalCnt;
+		Director::getInstance()->replaceScene(scene);
+
 	}
 }
 
