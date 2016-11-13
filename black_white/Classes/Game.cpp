@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "DataUtil.h"
 
 USING_NS_CC;
 
@@ -89,6 +90,37 @@ void GameScene::stopTimer()
 		
 		// 这里做跳转，存储数据等操作
 		// TODO
+		//创建数据库，如果数据库存在的话，就会打开数据库
+		if (DataUtil::pScore != NULL)
+			free(DataUtil::pScore);
+		DataUtil::initDB("ok.db");
+		//数据库中没有表格的话就先创建一个表格先
+		//string sqlsss = "create table user(id integer,score integer)";
+		//DataUtil::createTable(sqlsss, "user");
+
+		//char sql[256] = { 0 };
+		//sprintf(sql, "update user set score=%d where id=1", lineTotalCnt);
+
+		//char sql[256] = { 0 };
+		//sprintf(sql, "insert into user values(1,%d)", lineTotalCnt);
+		//string sqlss(sql);
+		//DataUtil::insertData(sqlss);
+		string sqls = "select max(id) from user";
+		DataUtil::getDataInfo(sqls, NULL);
+		DataUtil::closeDB();
+
+		int cnt = atoi(DataUtil::pScore);
+		if (DataUtil::pScore != NULL)
+			free(DataUtil::pScore);
+
+		DataUtil::initDB("ok.db");
+		//int cnt = DataUtil::getDataCount("select count(*) from user");
+		char sql[256] = { 0 };
+		sprintf(sql, "insert into user values(%d,%d)", cnt+1,lineTotalCnt);
+		string sqlss(sql);
+		DataUtil::insertData(sqlss);
+
+		DataUtil::closeDB();
 	}
 }
 

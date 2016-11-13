@@ -1,5 +1,6 @@
 #include "GameMenu.h"
 #include "Game.h"
+#include "HighScore.h"
 
 #include "ui\CocosGUI.h"
 #include "editor-support\cocostudio\CCSGUIReader.h"
@@ -83,4 +84,20 @@ void  Gamemenu::helpCallback(cocos2d::Ref* pSender, cocos2d::ui::TouchEventType 
 
 void Gamemenu::highScoreCallback(cocos2d::Ref* pSender, cocos2d::ui::TouchEventType type)
 {
+	switch (type)
+	{
+	case TouchEventType::TOUCH_EVENT_BEGAN: // 单机时间开始时触发（按下的时候）
+		break;
+	case TouchEventType::TOUCH_EVENT_MOVED: // 按下之后，进行移动操作时触发
+		break;
+	case TouchEventType::TOUCH_EVENT_ENDED: // 按下之后，然后松开触发
+	{
+		Director::getInstance()->replaceScene(HighScore::createScene());
+	}
+	break;
+	case TouchEventType::TOUCH_EVENT_CANCELED: // 中断触发
+		break;
+	default:
+		break;
+	}
 }
