@@ -41,7 +41,7 @@ bool GameOver::init()
 	btnAgin->addTouchEventListener(this, toucheventselector(GameOver::againCallback));
 
 	// back
-	Button* btnHighScore = (Button*)Helper::seekWidgetByName(ui, "btn_HightScore");
+	Button* btnHighScore = (Button*)Helper::seekWidgetByName(ui, "btn_HighScore");
 	btnHighScore->addTouchEventListener(this, toucheventselector(GameOver::highScoreCallback));
 
 	return true;
